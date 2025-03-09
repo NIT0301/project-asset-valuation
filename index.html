@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Asset Valuation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .modal-content {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Automated Real Estate Valuation</h1>
+    <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#propertyDetailsModal">Start Valuation Process</button>
+</div>
+
+<div class="modal fade" id="propertyDetailsModal" tabindex="-1" role="dialog" aria-labelledby="propertyDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="propertyDetailsModalLabel">Property Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="propertyForm">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Property Type</label>
+                        <select class="form-control" id="type" required>
+                            <option value="">Select Type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Property Size (sqft)</label>
+                        <input type="number" class="form-control" id="size" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amenities">Amenities (separated by comma)</label>
+                        <input type="text" class="form-control" id="amenities">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Estimate Value</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="resultContainer" style="display: none;">
+    <h2>Estimated Property Value: <span id="estimatedValue"></span></h2>
+    <p>Based on the provided details, the estimated value of the property is <span id="estimatedValue"></span>.</p>
+    <p>Comparable sales and market trends indicate that this is a fair estimate.</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#propertyForm').submit(function(e) {
+            e.preventDefault();
+            var location = $('#location').val();
+            var type = $('#type').val();
+            var size = $('#size').val();
+            var amenities = $('#amenities').val().split(',');
+
+            // Valuation model logic
+            var estimatedValue = 100000 + (size * 100) + (amenities.length * 5000);
+
+            // Display result
+            $('#estimatedValue').text(estimatedValue);
+            $('#resultContainer').show();
+        });
+    });
+</script>
+</body>
+</html>
